@@ -635,17 +635,27 @@ console.log(categories);
         className="bg-white border rounded-2xl shadow p-4"
       >
 
-        <div className="flex items-center gap-2 mb-4">
+       <div className="flex items-center gap-2 mb-4">
 
-          <span className="text-2xl">
-            {CATEGORY_ICONS[category.name] || "📁"}
-          </span>
+  <span className="text-2xl">
+    {CATEGORY_ICONS[category.name] || "📁"}
+  </span>
 
-          <h3 className="font-bold text-lg">
-            {category.name}
-          </h3>
+  <input
+    disabled={category.isDefault}
+    value={category.name}
+    onChange={(e) =>
+      updateCategoryName(index, e.target.value)
+    }
+    placeholder="Category"
+    className={`flex-1 border rounded-xl p-3 ${
+      category.isDefault
+        ? "bg-gray-100 cursor-not-allowed"
+        : ""
+    }`}
+  />
 
-        </div>
+</div>
 
         <div className="space-y-3">
 
@@ -654,14 +664,17 @@ console.log(categories);
               Budget
             </label>
 
-            <input
-              type="number"
-              value={category.amount}
-              onChange={(e) =>
-                updateCategoryAmount(index, e.target.value)
-              }
-              className="w-full border rounded-xl p-3 mt-1"
-            />
+           <input
+  type="number"
+  value={category.amount === 0 ? "" : category.amount}
+  onChange={(e) =>
+    updateCategoryAmount(
+      index,
+      e.target.value === "" ? 0 : Number(e.target.value)
+    )
+  }
+  className="w-full border rounded-xl p-3 mt-1"
+/>
           </div>
 
           <div className="flex justify-between">
