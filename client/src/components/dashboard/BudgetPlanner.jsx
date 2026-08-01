@@ -614,10 +614,8 @@ console.log(categories);
           </tbody>
         </table>
       </div>
-      <div className="lg:hidden space-y-4 mt-6">
-
+   <div className="lg:hidden space-y-4 mt-6">
   {categories.map((category, index) => {
-
     const spent = spentByCategory[category.name] || 0;
 
     const budget = Number(category.amount);
@@ -632,94 +630,106 @@ console.log(categories);
     return (
       <div
         key={index}
-        className="bg-white border rounded-2xl shadow p-4"
+        className="bg-white border rounded-2xl shadow p-4 w-full overflow-hidden"
       >
+        {/* Category */}
+        <div className="flex items-center gap-3 mb-4 w-full">
 
-       <div className="flex items-center gap-2 mb-4">
+          <span className="text-2xl flex-shrink-0">
+            {CATEGORY_ICONS[category.name] || "📁"}
+          </span>
 
-  <span className="text-2xl">
-    {CATEGORY_ICONS[category.name] || "📁"}
-  </span>
-
-  <input
-    disabled={category.isDefault}
-    value={category.name}
-    onChange={(e) =>
-      updateCategoryName(index, e.target.value)
-    }
-    placeholder="Category"
-    className={`flex-1 border rounded-xl p-3 ${
-      category.isDefault
-        ? "bg-gray-100 cursor-not-allowed"
-        : ""
-    }`}
-  />
-
-</div>
-
-        <div className="space-y-3">
-
-          <div>
-            <label className="text-sm text-gray-500">
-              Budget
-            </label>
-
-           <input
-  type="number"
-  value={category.amount === 0 ? "" : category.amount}
-  onChange={(e) =>
-    updateCategoryAmount(
-      index,
-      e.target.value === "" ? 0 : Number(e.target.value)
-    )
-  }
-  className="w-full border rounded-xl p-3 mt-1"
-/>
-          </div>
-
-          <div className="flex justify-between">
-
-            <span>Spent</span>
-
-            <strong>
-              ৳{spent.toLocaleString()}
-            </strong>
-
-          </div>
-
-          <div className="w-full h-3 bg-gray-200 rounded-full">
-
-            <div
-              className={`h-3 rounded-full ${
-                difference < 0
-                  ? "bg-red-500"
-                  : difference === 0
-                  ? "bg-blue-500"
-                  : "bg-green-500"
-              }`}
-              style={{
-                width: `${percent}%`,
-              }}
-            />
-
-          </div>
-
-          {difference >= 0 ? (
-            <p className="text-green-600 font-bold">
-              ✅ Saved ৳{difference.toLocaleString()}
-            </p>
+          {category.isDefault ? (
+            <h3 className="font-bold text-lg truncate">
+              {category.name}
+            </h3>
           ) : (
-            <p className="text-red-600 font-bold">
-              ❌ Short ৳{Math.abs(difference).toLocaleString()}
-            </p>
+            <input
+              value={category.name}
+              onChange={(e) =>
+                updateCategoryName(index, e.target.value)
+              }
+              placeholder="Category"
+              className="flex-1 min-w-0 border rounded-xl px-3 py-2"
+            />
           )}
-
         </div>
 
+        {/* Budget */}
+        <div className="mb-4">
+          <label className="text-sm text-gray-500 font-medium">
+            Budget
+          </label>
+
+          <input
+            type="number"
+            value={category.amount === 0 ? "" : category.amount}
+            onChange={(e) =>
+              updateCategoryAmount(
+                index,
+                e.target.value === ""
+                  ? 0
+                  : Number(e.target.value)
+              )
+            }
+            className="w-full border rounded-xl px-3 py-2 mt-2"
+          />
+        </div>
+
+        {/* Spent */}
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-gray-600">
+            Spent
+          </span>
+
+          <strong className="text-red-600">
+            ৳{spent.toLocaleString()}
+          </strong>
+        </div>
+
+        {/* Progress */}
+        <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden mb-3">
+          <div
+            className={`h-3 rounded-full transition-all duration-500 ${
+              difference < 0
+                ? "bg-red-500"
+                : difference === 0
+                ? "bg-blue-500"
+                : "bg-green-500"
+            }`}
+            style={{
+              width: `${percent}%`,
+            }}
+          />
+        </div>
+
+        {/* Status */}
+        {budget === 0 ? (
+          <p className="text-center text-gray-500">
+            No Budget
+          </p>
+        ) : difference >= 0 ? (
+          <p className="text-green-600 font-bold">
+            ✅ Saved ৳{difference.toLocaleString()}
+          </p>
+        ) : (
+          <p className="text-red-600 font-bold">
+            ❌ Short ৳{Math.abs(difference).toLocaleString()}
+          </p>
+        )}
+
+        {/* Delete Button */}
+        {!category.isDefault && (
+          <button
+            onClick={() => deleteCategory(index)}
+            className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl transition"
+          >
+            Delete Category
+          </button>
+        )}
       </div>
     );
   })}
-
 </div>
       <div className="mt-6">
         <button
