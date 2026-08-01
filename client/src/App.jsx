@@ -24,9 +24,13 @@ function App() {
   />
 
   <Route
-    path="/income"
-    element={<Income />}
-  />
+  path="/income"
+  element={
+    <ProtectedRoute>
+      <Income />
+    </ProtectedRoute>
+  }
+/>
 
   <Route
     path="/budget"
