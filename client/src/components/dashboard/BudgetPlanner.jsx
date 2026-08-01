@@ -265,13 +265,7 @@ console.log(categories);
           </div>
         </div>
 
-        <button
-          onClick={saveBudget}
-          disabled={saving}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl"
-        >
-          {saving ? "Saving..." : "Save Budget"}
-        </button>
+       
       </div>
 
       {/* Summary */}
@@ -731,13 +725,24 @@ console.log(categories);
     );
   })}
 </div>
-      <div className="mt-6">
+      <div className="mt-6 jus ">
         <button
           onClick={addCategory}
-          className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl"
+          className="w-full md:w-auto bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-8 py-3 rounded-xl font-semibold transition"
         >
           + Add Category
         </button>
+        <div className="mt-6 flex flex-col md:flex-row gap-4">
+  <button
+    onClick={saveBudget}
+    disabled={saving}
+    className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-8 py-3 rounded-xl font-semibold transition"
+  >
+    {saving ? "Saving..." : "💾 Save Budget"}
+  </button>
+</div>
+      
+        
       </div>
     </div>
   );
