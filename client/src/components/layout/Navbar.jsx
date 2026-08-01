@@ -2,16 +2,16 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <div className="bg-white shadow-md rounded-2xl p-4 mb-6">
-      <div className="flex flex-wrap gap-3 justify-center">
+    <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-lg rounded-2xl p-4 mb-6">
+      <div className="flex flex-wrap justify-center gap-3">
 
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
-            `px-5 py-3 rounded-xl font-semibold transition ${
+            `px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${
               isActive
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 hover:bg-blue-100"
+                ? "bg-blue-600 text-white shadow-md"
+                : "bg-gray-100 hover:bg-blue-100 hover:scale-105"
             }`
           }
         >
@@ -21,10 +21,10 @@ function Navbar() {
         <NavLink
           to="/income"
           className={({ isActive }) =>
-            `px-5 py-3 rounded-xl font-semibold transition ${
+            `px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${
               isActive
-                ? "bg-green-600 text-white"
-                : "bg-gray-100 hover:bg-green-100"
+                ? "bg-green-600 text-white shadow-md"
+                : "bg-gray-100 hover:bg-green-100 hover:scale-105"
             }`
           }
         >
@@ -34,10 +34,10 @@ function Navbar() {
         <NavLink
           to="/budget"
           className={({ isActive }) =>
-            `px-5 py-3 rounded-xl font-semibold transition ${
+            `px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${
               isActive
-                ? "bg-purple-600 text-white"
-                : "bg-gray-100 hover:bg-purple-100"
+                ? "bg-purple-600 text-white shadow-md"
+                : "bg-gray-100 hover:bg-purple-100 hover:scale-105"
             }`
           }
         >
