@@ -635,24 +635,25 @@ console.log(categories);
         className="bg-white border rounded-2xl shadow p-4"
       >
 
-      <div className="flex items-center gap-2 mb-4">
+       <div className="flex items-center gap-2 mb-4">
 
-  <span className="text-2xl flex-shrink-0">
+  <span className="text-2xl">
     {CATEGORY_ICONS[category.name] || "📁"}
   </span>
 
-  {category.isDefault ? (
-    <h3 className="font-bold text-lg truncate">
-      {category.name}
-    </h3>
-  ) : (
-    <input
-      value={category.name}
-      onChange={(e) => updateCategoryName(index, e.target.value)}
-      placeholder="Category"
-      className="border rounded-lg px-3 py-2 w-40 text-sm"
-    />
-  )}
+  <input
+    disabled={category.isDefault}
+    value={category.name}
+    onChange={(e) =>
+      updateCategoryName(index, e.target.value)
+    }
+    placeholder="Category"
+    className={`flex-1 border rounded-xl p-3 ${
+      category.isDefault
+        ? "bg-gray-100 cursor-not-allowed"
+        : ""
+    }`}
+  />
 
 </div>
 
