@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import api from "../services/api";
 import Navbar from "../components/layout/Navbar";
-
+import LoadingScreen from "../components/common/LoadingScreen";
 import IncomeForm from "../components/income/IncomeForm";
 import IncomeList from "../components/income/IncomeList";
 
 function Income() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const [incomeData, setIncomeData] = useState({
     category: "",
@@ -27,8 +28,10 @@ function Income() {
   );
 
 
-  const fetchIncome = async () => {
+ const fetchIncome = async () => {
   try {
+    setLoading(true);
+
     const token = localStorage.getItem("token");
 
     const response = await api.get("/income", {
@@ -40,6 +43,8 @@ function Income() {
     setIncomes(response.data.incomes);
   } catch (error) {
     console.log(error);
+  } finally {
+    setLoading(false);
   }
 };
 
@@ -158,6 +163,13 @@ const deleteIncome = async (id) => {
     }
   }
 };
+
+
+if (loading) {
+  return (
+    <LoadingScreen text="Loading Income..." />
+  );
+}
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-8">
